@@ -738,6 +738,23 @@ footer {
     transform: translateY(0);
 }
 
+.snowflake {
+    position: fixed;
+    top: -2em;
+    font-size: 2em;
+    pointer-events: none;
+    user-select: none;
+    z-index: 9999;
+    animation-name: fall;
+    animation-timing-function: linear;
+}
+
+@keyframes fall {
+    0% { top: -2em; opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100vh; opacity: 0; }
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .hero-title {
