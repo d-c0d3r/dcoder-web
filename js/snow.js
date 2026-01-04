@@ -3,7 +3,7 @@ const snowSymbols = ["✧","❄︎","✦","✼","✩","✺","✷","✶","✵","�
 let snowflakesCount = 0;
 
 function createSnowflake() {
-    if (snowflakesCount >= 50) return;
+    if (snowflakesCount >= 100) return;
 
     const snowflake = document.createElement('span');
     snowflake.className = 'snowflake';
@@ -26,28 +26,18 @@ function createSnowflake() {
 let snowInterval = null;
 
 function startSnow() {
-    if (snowInterval) return; // Уже работает
+    if (snowInterval) return;
+    function isAllowedMonth() {
+        const allowed = [12, 0, 1];
+        const m0 = new Date().getMonth(); // 0-11
+        const m1 = m0 + 1; // 1-12
+        return allowed.includes(m0) || allowed.includes(m1);
+    }
+    if (!isAllowedMonth()) return;
     snowInterval = setInterval(() => {
-        let flakesToAdd = 2 + Math.floor(Math.random() * 4); // 2-5 штук
+        let flakesToAdd = 4 + Math.floor(Math.random() * 9);
         for (let i = 0; i < flakesToAdd; i++) createSnowflake();
     }, 1000);
 }
 
-function stopSnow() {
-    clearInterval(snowInterval);
-    snowInterval = null;
-    document.querySelectorAll('.snowflake').forEach(f => f.remove());
-    snowflakesCount = 0;
-}
-
-// Используйте эту переменную для включения/выключения
-let is_winter = true;
-function toggleWinter(val) {
-    is_winter = val;
-    if (is_winter) startSnow();
-    else stopSnow();
-}
-
-toggleWinter(is_winter);
-
-// Для переключения: toggleWinter(true) или toggleWinter(false)
+startSnow();
